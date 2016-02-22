@@ -6,6 +6,13 @@
 
 # Ignore bundler config.
 /.bundle
+.DS_Store
+/vender/customers.csv
+/vender/invoice_item.csv
+/vender/invoice.csv
+/vender/items.csv
+/vender/merchants.csv
+/vender/transactions.csv
 
 # Ignore all logfiles and tempfiles.
 /log/*
