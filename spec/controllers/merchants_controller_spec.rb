@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe MerchantsController do
-  describe "GET index" do
-    it "assigns @teams" do
-      team = Team.create
-      get :index
+RSpec.describe Api::V1::MerchantsController do
+  describe "GET all merchants" do
+    it "returns all merchant ids" do
+      get :index, format: :json
+      byebug
       expect(assigns(:teams)).to eq([team])
     end
 
-    it "renders the index template" do
-      get :index
-      expect(response).to render_template("index")
-    end
+    # it "renders the index template" do
+    #   get :index
+    #   expect(response).to render_template("index")
+    # end
   end
 end
