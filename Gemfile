@@ -20,6 +20,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'launchy'
+  gem "factory_girl_rails", "~> 4.0"
 end
 
 group :development do
