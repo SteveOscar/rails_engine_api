@@ -21,6 +21,7 @@ task :import => [:environment] do
   file = "vendor/items.csv"
   CSV.foreach(file, :headers => true) do |row|
     Item.create! row.to_h
+    byebug
   end
 
   file = "vendor/transactions.csv"
