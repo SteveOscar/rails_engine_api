@@ -12,8 +12,8 @@ class Api::V1::TransactionsFindController < Api::ApiController
   end
 
   def index
-    respond_with Transaction.where("lower(transactions.invoice_id) LIKE '#{params[:invoice_id].downcase}'") if params[:invoice_id]
-    respond_with Transaction.where("lower(transactions.credit_card_number) LIKE '#{params[:credit_card_number].downcase}'") if params[:credit_card_number]
+    respond_with Transaction.where(invoice_id: params[:invoice_id]) if params[:invoice_id]
+    respond_with Transaction.where(credit_card_number: params[:credit_card_number]) if params[:credit_card_number]
     respond_with Transaction.where("lower(transactions.result) LIKE '#{params[:result].downcase}'") if params[:result]
     respond_with Transaction.where("transactions.credit_card_expiration_date LIKE '#{params[:credit_card_expiration_date]}'") if params[:credit_card_expiration_date]
     respond_with Transaction.where(created_at: DateTime.parse(params[:created_at])) if params[:created_at]

@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/rails-api/active_model_serializers.git
+  revision: 532828b4dad41e1f5b17fe29751bb693b4bc0da2
+  specs:
+    active_model_serializers (0.10.0.rc4)
+      actionpack (>= 4.0)
+      activemodel (>= 4.0)
+      railties (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -193,6 +202,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers!
   bcrypt (~> 3.1.7)
   bootstrap-sass (~> 3.3.6)
   byebug

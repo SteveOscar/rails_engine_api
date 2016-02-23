@@ -11,8 +11,8 @@ class Api::V1::InvoicesFindController < Api::ApiController
   end
 
   def index
-    respond_with Invoice.where("lower(invoices.customer_id) LIKE '#{params[:customer_id].downcase}'") if params[:customer_id]
-    respond_with Invoice.where("lower(invoices.merchant_id) LIKE '#{params[:merchant_id].downcase}'") if params[:merchant_id]
+    respond_with Invoice.where(customer_id: params[:customer_id]) if params[:customer_id]
+    respond_with Invoice.where(merchant_id: params[:merchant_id]) if params[:merchant_id]
     respond_with Invoice.where("lower(invoices.status) LIKE '#{params[:status].downcase}'") if params[:status]
     respond_with Invoice.where(created_at: DateTime.parse(params[:created_at])) if params[:created_at]
     respond_with Invoice.where(created_at: DateTime.parse(params[:updated_at])) if params[:updated_at]

@@ -11,9 +11,9 @@ class Api::V1::InvoiceItemsFindController < Api::ApiController
   end
 
   def index
-    respond_with InvoiceItem.where("lower(invoice_items.item_id) LIKE '#{params[:item_id].downcase}'") if params[:item_id]
-    respond_with InvoiceItem.where("lower(invoice_items.invoice_id) LIKE '#{params[:invoice_id].downcase}'") if params[:invoice_id]
-    respond_with InvoiceItem.where("lower(invoice_items.quantity) LIKE '#{params[:quantity].downcase}'") if params[:quantity]
+    respond_with InvoiceItem.where(item_id: params[:item_id]) if params[:item_id]
+    respond_with InvoiceItem.where(invoice_id: params[:invoice_id]) if params[:invoice_id]
+    respond_with InvoiceItem.where(quantity: params[:quantity]) if params[:quantity]
     respond_with InvoiceItem.where(created_at: DateTime.parse(params[:created_at])) if params[:created_at]
     respond_with InvoiceItem.where(created_at: DateTime.parse(params[:updated_at])) if params[:updated_at]
     respond_with InvoiceItem.find(params[:id]) if params[:id]
