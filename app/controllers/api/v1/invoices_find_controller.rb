@@ -16,7 +16,7 @@ class Api::V1::InvoicesFindController < Api::ApiController
     respond_with Invoice.where("lower(invoices.status) LIKE '#{params[:status].downcase}'") if params[:status]
     respond_with Invoice.where(created_at: DateTime.parse(params[:created_at])) if params[:created_at]
     respond_with Invoice.where(created_at: DateTime.parse(params[:updated_at])) if params[:updated_at]
-    respond_with Invoice.find(params[:id]) if params[:id]
+    respond_with Invoice.where(id: params[:id]) if params[:id]
   end
 
 end

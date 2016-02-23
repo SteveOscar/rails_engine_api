@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::MerchantsFindController do
-  describe "GET show" do
-    it "finds a merchant by id" do
+  describe "#show" do
+    it "finds by id" do
       FactoryGirl.create(:merchant)
       FactoryGirl.create(:merchant)
 
@@ -11,7 +11,18 @@ RSpec.describe Api::V1::MerchantsFindController do
       expect(result).not_to eq(true)
     end
 
-    it "returns all matching objects" do
+    it "finds by name" do
+      merchant = FactoryGirl.create(:merchant)
+
+      get :show, name: merchant.name, format: :json
+      result = JSON.parse(response.body)
+
+      expect(result['name']).to eq(merchant.name)
+    end
+  end
+
+  describe "#index" do
+    it "finds all by name" do
       merchant = FactoryGirl.create(:merchant)
       FactoryGirl.create(:merchant, name: merchant.name)
 
@@ -20,6 +31,37 @@ RSpec.describe Api::V1::MerchantsFindController do
       result = JSON.parse(response.body).count
 
       expect(result).to eq(2)
+    end
+
+    it "finds all by id" do
+      merchant = FactoryGirl.create(:merchant)
+      FactoryGirl.create(:merchant, name: merchant.name)
+
+      get :index, id: merchant.id, format: :json
+
+      result = JSON.parse(response.body).count
+
+      expect(result).to eq(1)
+    end
+
+    xit "finds all by created_at" do
+      merchant = FactoryGirl.create(:merchant)
+      FactoryGirl.create(:merchant, name: merchant.name)
+
+      get :index, created_at: merchant.created_at.to_time.iso8601, format: :json
+      result = JSON.parse(response.body)['name']
+
+      expect(result).to eq(merchant.name)
+    end
+
+    xit "finds all by updated_at" do
+      merchant = FactoryGirl.create(:merchant)
+      FactoryGirl.create(:merchant, name: merchant.name)
+
+      get :index, updated_at: merchant.updated_at.to_time.iso8601, format: :json
+      result = JSON.parse(response.body)['name']
+
+      expect(result).to eq(merchant.name)
     end
   end
 end
