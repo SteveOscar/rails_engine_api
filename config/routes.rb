@@ -35,15 +35,15 @@ Rails.application.routes.draw do
       get '/invoice_items/find', to: 'invoice_items_find#show'
       get '/invoice_items/:id/invoice', to: 'invoice_items/invoice#show'
       get '/invoice_items/:id/item', to: 'invoice_items/item#show'
-      resources :invoice_items, defaults: {format: :json}
-      resources :invoices, defaults: {format: :json}
-      resources :transactions, defaults: {format: :json}
+      resources :invoice_items
+      resources :invoices
+      resources :transactions
       resources :merchants do
         # resources :items
         resources :invoices
       end
-      resources :items, defaults: {format: :json}
-      resources :customers, defaulst: {format: :json}
+      resources :items
+      resources :customers
     end
   end
 
