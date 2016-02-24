@@ -10,7 +10,7 @@ RSpec.describe Api::V1::Items::ItemsRandomController do
       result = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(result.first['name']).to eq(item.name)
+      expect(result.last['name']).to eq(item.name)
     end
   end
 end

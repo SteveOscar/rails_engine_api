@@ -26,5 +26,13 @@ FactoryGirl.define do
     updated_at DateTime.parse("2012-03-27T14:54:05.000Z")
   end
 
+  factory :invoice_item do |u|
+    item_id "1"
+    invoice_id "1"
+    unit_price "439.43"
+    quantity "2"
+    created_at DateTime.parse("2012-03-27T14:54:05.000Z")
+    updated_at DateTime.parse("2012-03-27T14:54:05.000Z")
+  end
 
 end
