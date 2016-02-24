@@ -58,7 +58,7 @@ RSpec.describe Api::V1::MerchantsFindController do
       result = JSON.parse(response.body).first['name']
 
       expect(response).to be_success
-      expect(result).to eq(merchant.name)
+      expect(result).to eq(Merchant.first.name)
     end
 
     it "finds all by updated_at" do
@@ -69,7 +69,7 @@ RSpec.describe Api::V1::MerchantsFindController do
       result = JSON.parse(response.body).first['name']
 
       expect(response).to be_success
-      expect(result).to eq(merchant.name)
+      expect(result).to eq(Merchant.first.name)
     end
   end
 end

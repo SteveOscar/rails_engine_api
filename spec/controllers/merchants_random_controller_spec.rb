@@ -10,7 +10,7 @@ RSpec.describe Api::V1::MerchantsRandomController do
       result = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(result.first['name']).to eq(merchant.name)
+      expect(result.first['name']).to eq(Merchant.last.name)
     end
   end
 end
