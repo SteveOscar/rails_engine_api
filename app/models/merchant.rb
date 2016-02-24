@@ -11,9 +11,19 @@ class Merchant < ActiveRecord::Base
   #   Merchant.order(InvoiceItem.joins(:invoice).where('invoices.merchant_id = ?', 1).sum("quantity * unit_price"))
   # end
 
+  def self.pending_invoice_customers(id)
+    merchant = Merchant.find(id)
+    merchant.invoices.pending.joins(:customer).uniq
+  end
+
+  def self.best_customer(id)
+    merchant = Merchant.find(id)
+    { id: merchant.invoices.group(:customer_id).order("count('customer_id') desc").limit(1).pluck(:customer_id)[0]}
+  end
+
   def self.revenue_by_date_merchant(id, date)
     merchant = Merchant.find(id)
-    {"revenue" => merchant.invoices.where(created_at: DateTime.parse(date)).successful.joins(:invoice_items).sum("quantity * unit_price")}
+    {"revenue" => merchant.invoices.by_date(date).successful.joins(:invoice_items).sum("quantity * unit_price")}
   end
 
   def self.total_revenue_merchant(id)
