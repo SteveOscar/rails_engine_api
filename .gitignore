@@ -7,6 +7,7 @@
 # Ignore bundler config.
 /.bundle
 .DS_Store
+.byebug_history
 /vender/customers.csv
 /vender/invoice_item.csv
 /vender/invoice.csv

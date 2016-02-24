@@ -15,7 +15,10 @@ RSpec.describe Api::V1::MerchantsController do
 
       get :show, id: merchant.id, format: :json
 
+      result = JSON.parse(response.body)
+      
       expect(response).to be_success
+      expect(result['name']).to eq(merchant.name)
     end
   end
 end

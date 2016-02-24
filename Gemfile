@@ -10,6 +10,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'figaro'
 gem 'pg'
 gem "responders"
+gem "active_model_serializers", github: "rails-api/active_model_serializers"
 
 
 group :development, :test do
@@ -21,6 +22,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'launchy'
   gem "factory_girl_rails", "~> 4.0"
+  gem 'pry'
 end
 
 group :development do
