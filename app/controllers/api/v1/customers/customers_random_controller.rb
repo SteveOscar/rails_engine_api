@@ -1,4 +1,4 @@
-class Api::V1::CustomersRandomController < Api::ApiController
+class Api::V1::Customers::CustomersRandomController < Api::ApiController
   respond_to :json
 
   def show
