@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ItemsRandomController do
+RSpec.describe Api::V1::Items::ItemsRandomController do
   describe "#show" do
     it "returns a random item" do
       item = FactoryGirl.create(:item)

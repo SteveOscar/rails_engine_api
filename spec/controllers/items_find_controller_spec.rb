@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ItemsFindController do
+RSpec.describe Api::V1::Items::ItemsFindController do
   describe "#show" do
     it "finds by id" do
       FactoryGirl.create(:item)

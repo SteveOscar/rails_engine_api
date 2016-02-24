@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::MerchantsFindController do
+RSpec.describe Api::V1::Merchants::MerchantsFindController do
   describe "#show" do
     it "finds by id" do
       FactoryGirl.create(:merchant)

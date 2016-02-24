@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::InvoicesFindController do
+RSpec.describe Api::V1::Invoices::InvoicesFindController do
   before(:all) do
     customer = FactoryGirl.create(:customer)
     merchant = FactoryGirl.create(:merchant)

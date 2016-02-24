@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::MerchantsRandomController do
+RSpec.describe Api::V1::Merchants::MerchantsRandomController do
   describe "GET merchant endpoints" do
     it "returns a random merchant" do
       merchant = FactoryGirl.create(:merchant)

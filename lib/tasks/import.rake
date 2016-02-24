@@ -34,9 +34,9 @@ task :import => [:environment] do
   file = "vendor/invoice_item.csv"
   CSV.foreach(file, :headers => true) do |row|
     InvoiceItem.create! row.to_h
-    # price = InvoiceItem.last.unit_price
-    # InvoiceItem.last.update(unit_price: (price.to_i.to_f / 100))
-    # InvoiceItem.last.update(updated_at: row['updated_at'])
+    price = InvoiceItem.last.unit_price
+    InvoiceItem.last.update(unit_price: (price / 100))
+    InvoiceItem.last.update(updated_at: row['updated_at'])
   end
 
 end
