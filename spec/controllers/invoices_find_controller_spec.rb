@@ -6,6 +6,7 @@ RSpec.describe Api::V1::Invoices::InvoicesFindController do
     merchant = FactoryGirl.create(:merchant)
     invoice = FactoryGirl.create(:invoice, customer_id: customer.id,
                                            merchant_id: merchant.id,
+                                           status: 'shipped',
                                            created_at: DateTime.parse("2012-03-27T14:54:05.000Z"),
                                            updated_at: DateTime.parse("2012-03-27T14:54:05.000Z"))
    end
@@ -22,12 +23,19 @@ RSpec.describe Api::V1::Invoices::InvoicesFindController do
     end
 
     it "finds by customer_id" do
-
       get :show, customer_id: Invoice.first.customer_id, format: :json
       result = JSON.parse(response.body)
 
       expect(response).to be_success
       expect(result['customer_id']).to eq(Invoice.first.customer_id)
+    end
+
+    it "finds by merchant_id" do
+      get :show, merchant_id: Invoice.first.merchant_id, format: :json
+      result = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(result['merchant_id']).to eq(Invoice.first.merchant_id)
     end
   end
 
