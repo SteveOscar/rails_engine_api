@@ -52,23 +52,23 @@ RSpec.describe Api::V1::Invoices::InvoicesFindController do
       expect(result).to eq(1)
     end
 
-    xit "finds all by created_at" do
+    it "finds all by created_at" do
 
       get :index, created_at: "2012-03-27T14:54:05.000Z", format: :json
 
       result = JSON.parse(response.body).first['created_at']
 
       expect(response).to be_success
-      expect(result).to eq(Invoice.first.created_at)
+      expect(DateTime.parse(result)).to eq(Invoice.first.created_at)
     end
 
-    xit "finds all by updated_at" do
+    it "finds all by updated_at" do
 
       get :index, updated_at: "2012-03-27T14:54:05.000Z", format: :json
       result = JSON.parse(response.body).first['updated_at']
 
       expect(response).to be_success
-      expect(result).to eq(Invoice.first.updated_at)
+      expect(DateTime.parse(result)).to eq(Invoice.first.updated_at)
     end
   end
 end
