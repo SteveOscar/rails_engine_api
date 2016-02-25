@@ -3,63 +3,79 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1, defaults: {format: :json} do
-      get '/merchants/random', to: 'merchants/merchants_random#show'
-      get '/merchants/find_all', to: 'merchants/merchants_find#index'
-      get '/merchants/find', to: 'merchants/merchants_find#show'
-      get '/merchants/most_revenue', to: 'merchants/merchants_revenue#index'
-      get '/merchants/most_items', to: 'merchants/most_items#index'
-      get '/merchants/:id/revenue', to: 'merchants/merchants_revenue#show'
-      get 'merchants/:id/favorite_customer', to: 'merchants/merchants_customer#show'
-      get '/merchants/:id/customers_with_pending_invoices', to: 'merchants/pending_invoices#index'
-      get '/merchants/:merchant_id/items', to: 'merchants/items#index'
-      get '/merchants/:merchant_id/invoices', to: 'merchants/invoices#index'
-      get '/merchants/revenue', to: 'merchants/revenue#index'
 
-      get '/items/random', to: 'items/items_random#show'
-      get '/items/find_all', to: 'items/items_find#index'
-      get '/items/find', to: 'items/items_find#show'
-      get '/items/:id/invoice_items', to: 'items/invoice_items#index'
-      get '/items/:id/merchant', to: 'items/merchant#show'
-      get '/items/most_revenue', to: 'items/items_revenue#index'
-      get '/items/most_items', to: 'items/most_items#index'
-      get '/items/:id/best_day', to: 'items/best_day#show'
-
-      get '/customers/random', to: 'customers/customers_random#show'
-      get '/customers/find_all', to: 'customers/customers_find#index'
-      get '/customers/find', to: 'customers/customers_find#show'
-      get '/customers/:id/invoices', to: 'customers/invoices#show'
-      get '/customers/:id/transactions', to: 'customers/transactions#index'
-      get '/customers/:id/favorite_merchant', to: 'customers/favorite_merchant#show'
-
-      get '/transactions/random', to: 'transactions/transactions_random#show'
-      get '/transactions/find_all', to: 'transactions/transactions_find#index'
-      get '/transactions/find', to: 'transactions/transactions_find#show'
-      get '/transactions/:id/invoice', to: 'transactions/invoice#show'
-
-      get '/invoices/random', to: 'invoices/invoices_random#show'
-      get '/invoices/find_all', to: 'invoices/invoices_find#index'
-      get '/invoices/find', to: 'invoices/invoices_find#show'
-      get '/invoices/:id/transactions', to: 'invoices/transactions#index'
-      get '/invoices/:id/invoice_items', to: 'invoices/invoice_items#index'
-      get '/invoices/:id/items', to: 'invoices/items#index'
-      get '/invoices/:id/customer', to: 'invoices/customer#show'
-      get '/invoices/:id/merchant', to: 'invoices/merchant#show'
-
-      get '/invoice_items/random', to: 'invoice_items/invoice_items_random#show'
-      get '/invoice_items/find_all', to: 'invoice_items/invoice_items_find#index'
-      get '/invoice_items/find', to: 'invoice_items/invoice_items_find#show'
-      get '/invoice_items/:id/invoice', to: 'invoice_items/invoice#show'
-      get '/invoice_items/:id/item', to: 'invoice_items/item#show'
-
-      resources :invoice_items, module: 'invoice_items'
-      resources :invoices, module: 'invoices'
-      resources :transactions, module: 'transactions'
-      resources :merchants, module: 'merchants' do
-        # resources :items
-        resources :invoices
+      resources :items, module: 'items' do
+        collection do
+          get '/random', to: 'items_random#show'
+          get '/find_all', to: 'items_find#index'
+          get '/find', to: 'items_find#show'
+          get '/:id/invoice_items', to: 'invoice_items#index'
+          get '/:id/merchant', to: 'merchant#show'
+          get '/most_revenue', to: 'items_revenue#index'
+          get '/most_items', to: 'most_items#index'
+          get '/:id/best_day', to: 'best_day#show'
+        end
       end
-      resources :items, module: 'items'
-      resources :customers, module: 'customers'
+
+      resources :customers, module: 'customers' do
+        collection do
+          get '/random', to: 'customers_random#show'
+          get '/find_all', to: 'customers_find#index'
+          get '/find', to: 'customers_find#show'
+          get '/:id/invoices', to: 'invoices#show'
+          get '/:id/transactions', to: 'transactions#index'
+          get '/:id/favorite_merchant', to: 'favorite_merchant#show'
+        end
+      end
+
+      resources :transactions, module: 'transactions' do
+        collection do
+          get '/random', to: 'transactions_random#show'
+          get '/find_all', to: 'transactions_find#index'
+          get '/find', to: 'transactions_find#show'
+          get '/:id/invoice', to: 'invoice#show'
+        end
+      end
+
+      resources :invoices, module: 'invoices' do
+        collection do
+          get '/random', to: 'invoices_random#show'
+          get '/find_all', to: 'invoices_find#index'
+          get '/find', to: 'invoices_find#show'
+          get '/:id/transactions', to: 'transactions#index'
+          get '/:id/invoice_items', to: 'invoice_items#index'
+          get '/:id/items', to: 'items#index'
+          get '/:id/customer', to: 'customer#show'
+          get '/:id/merchant', to: 'merchant#show'
+        end
+      end
+
+      resources :invoice_items, module: 'invoice_items' do
+        collection do
+          get '/random', to: 'invoice_items_random#show'
+          get '/find_all', to: 'invoice_items_find#index'
+          get '/find', to: 'invoice_items_find#show'
+          get '/:id/invoice', to: 'invoice#show'
+          get '/:id/item', to: 'item#show'
+        end
+      end
+
+      resources :merchants, module: 'merchants' do
+        resources :invoices
+        collection do
+          get '/random', to: 'merchants_random#show'
+          get '/find_all', to: 'merchants_find#index'
+          get '/find', to: 'merchants_find#show'
+          get '/most_revenue', to: 'merchants_revenue#index'
+          get '/most_items', to: 'most_items#index'
+          get '/:id/revenue', to: 'merchants_revenue#show'
+          get '/:id/favorite_customer', to: 'merchants_customer#show'
+          get '/:id/customers_with_pending_invoices', to: 'pending_invoices#index'
+          get '/:merchant_id/items', to: 'items#index'
+          get '/:merchant_id/invoices', to: 'invoices#index'
+          get '/revenue', to: 'revenue#index'
+        end
+      end
     end
   end
 
