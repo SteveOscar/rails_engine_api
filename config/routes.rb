@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       get '/items/:id/invoice_items', to: 'items/invoice_items#index'
       get '/items/:id/merchant', to: 'items/merchant#show'
       get '/items/most_revenue', to: 'items/items_revenue#index'
+      get '/items/most_items', to: 'items/most_items#index'
+      get '/items/:id/best_day', to: 'items/best_day#show'
 
       get '/customers/random', to: 'customers/customers_random#show'
       get '/customers/find_all', to: 'customers/customers_find#index'
