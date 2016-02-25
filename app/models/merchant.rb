@@ -23,16 +23,14 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.most_items(quantity)
-    merchants = Merchant.includes(:invoices)
-    results = merchants.all.map do |merchant|
+    results = Merchant.includes(:invoices).map do |merchant|
       [merchant, merchant.invoices.successful.joins(:invoice_items).sum("quantity")]
     end
     sort_results(results, quantity)
   end
 
   def self.most_revenue_all_merchants(quantity)
-    merchants = Merchant.includes(:invoices)
-    results = merchants.all.map do |merchant|
+    results = Merchant.includes(:invoices).map do |merchant|
       [merchant, merchant.invoices.successful.joins(:invoice_items).sum("quantity * unit_price")]
       # [merchant, InvoiceItem.joins(:invoice).where('invoices.merchant_id = ?', merchant.id).sum("quantity * unit_price")]
     end
@@ -40,8 +38,7 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.total_revenue(date)
-    merchants = Merchant.includes(:invoices)
-    results = merchants.all.map do |merchant|
+    results = Merchant.includes(:invoices).map do |merchant|
       [merchant, merchant.invoices.by_date(date).successful.joins(:invoice_items).sum("quantity * unit_price")]
     end
     sum_results(results)

@@ -12,16 +12,14 @@ class Item < ActiveRecord::Base
   end
 
   def self.most_items(quantity)
-    items = Item.includes(:invoice_items)
-    results = items.all.map do |item|
+    results = Item.includes(:invoice_items).map do |item|
       [item, item.invoice_items.sum("quantity")]
     end
     sort_results(results, quantity)
   end
 
   def self.most_revenue(quantity)
-    items = Item.includes(:invoice_items)
-    results = items.all.map do |item|
+    results = Item.includes(:invoice_items).map do |item|
       [item, item.invoice_items.sum("quantity * unit_price")]
     end
     sort_results(results, quantity)
