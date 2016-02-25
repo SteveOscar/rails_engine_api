@@ -2,15 +2,6 @@ class Merchant < ActiveRecord::Base
   has_many :invoices
   has_many :items
 
-  # def self.most_revenue_merchants(quantity)
-  #   byebug
-  #   Item.joins(:invoice_items).where('invoice_items.invoice_id = ?', params[:id])
-  #
-  #   InvoiceItem.joins(:invoice).where('invoices.merchant_id = ?', 1)
-  #
-  #   Merchant.order(InvoiceItem.joins(:invoice).where('invoices.merchant_id = ?', 1).sum("quantity * unit_price"))
-  # end
-
   def self.pending_invoice_customers(id)
     merchant = Merchant.find(id)
     merchant.invoices.pending.joins(:customer).uniq
@@ -32,14 +23,16 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.most_items(quantity)
-    results = Merchant.all.map do |merchant|
+    merchants = Merchant.includes(:invoices)
+    results = merchants.all.map do |merchant|
       [merchant, merchant.invoices.successful.joins(:invoice_items).sum("quantity")]
     end
     sort_results(results, quantity)
   end
 
   def self.most_revenue_all_merchants(quantity)
-    results = Merchant.all.map do |merchant|
+    merchants = Merchant.includes(:invoices)
+    results = merchants.all.map do |merchant|
       [merchant, merchant.invoices.successful.joins(:invoice_items).sum("quantity * unit_price")]
       # [merchant, InvoiceItem.joins(:invoice).where('invoices.merchant_id = ?', merchant.id).sum("quantity * unit_price")]
     end
@@ -47,7 +40,8 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.total_revenue(date)
-    results = Merchant.all.map do |merchant|
+    merchants = Merchant.includes(:invoices)
+    results = merchants.all.map do |merchant|
       [merchant, merchant.invoices.by_date(date).successful.joins(:invoice_items).sum("quantity * unit_price")]
     end
     sum_results(results)
