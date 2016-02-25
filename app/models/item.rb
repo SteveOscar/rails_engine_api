@@ -5,7 +5,10 @@ class Item < ActiveRecord::Base
 
   def self.best_day(id)
     item = Item.find(id)
-    { "best_day" => item.invoices.successful.group('"invoices"."created_at"').sum('quantity').sort_by{|k, v| -v}.first[0] }
+    { "best_day" => item.invoices.successful.group('"invoices"."created_at"')
+                                            .sum('quantity')
+                                            .sort_by{|k, v| -v}
+                                            .first[0] }
   end
 
   def self.most_items(quantity)

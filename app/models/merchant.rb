@@ -31,12 +31,30 @@ class Merchant < ActiveRecord::Base
     {"revenue" => merchant.invoices.successful.joins(:invoice_items).sum("quantity * unit_price")}
   end
 
+  def self.most_items(quantity)
+    results = Merchant.all.map do |merchant|
+      [merchant, merchant.invoices.successful.joins(:invoice_items).sum("quantity")]
+    end
+    sort_results(results, quantity)
+  end
+
   def self.most_revenue_all_merchants(quantity)
     results = Merchant.all.map do |merchant|
       [merchant, merchant.invoices.successful.joins(:invoice_items).sum("quantity * unit_price")]
       # [merchant, InvoiceItem.joins(:invoice).where('invoices.merchant_id = ?', merchant.id).sum("quantity * unit_price")]
     end
     sort_results(results, quantity)
+  end
+
+  def self.total_revenue(date)
+    results = Merchant.all.map do |merchant|
+      [merchant, merchant.invoices.by_date(date).successful.joins(:invoice_items).sum("quantity * unit_price")]
+    end
+    sum_results(results)
+  end
+
+  def self.sum_results(results)
+    {"total_revenue" => results.inject(0) { |result, element| result + element.last }.to_f.to_s}
   end
 
   def self.sort_results(results, quantity)

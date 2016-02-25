@@ -7,11 +7,13 @@ Rails.application.routes.draw do
       get '/merchants/find_all', to: 'merchants/merchants_find#index'
       get '/merchants/find', to: 'merchants/merchants_find#show'
       get '/merchants/most_revenue', to: 'merchants/merchants_revenue#index'
+      get '/merchants/most_items', to: 'merchants/most_items#index'
       get '/merchants/:id/revenue', to: 'merchants/merchants_revenue#show'
       get 'merchants/:id/favorite_customer', to: 'merchants/merchants_customer#show'
       get '/merchants/:id/customers_with_pending_invoices', to: 'merchants/pending_invoices#index'
       get '/merchants/:merchant_id/items', to: 'merchants/items#index'
       get '/merchants/:merchant_id/invoices', to: 'merchants/invoices#index'
+      get '/merchants/revenue', to: 'merchants/revenue#index'
 
       get '/items/random', to: 'items/items_random#show'
       get '/items/find_all', to: 'items/items_find#index'
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
       get '/customers/find', to: 'customers/customers_find#show'
       get '/customers/:id/invoices', to: 'customers/invoices#show'
       get '/customers/:id/transactions', to: 'customers/transactions#index'
+      get '/customers/:id/favorite_merchant', to: 'customers/favorite_merchant#show'
 
       get '/transactions/random', to: 'transactions/transactions_random#show'
       get '/transactions/find_all', to: 'transactions/transactions_find#index'
