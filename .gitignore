@@ -8,6 +8,7 @@
 /.bundle
 .DS_Store
 .byebug_history
+coverage
 /vender/customers.csv
 /vender/invoice_item.csv
 /vender/invoice.csv
