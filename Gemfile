@@ -23,6 +23,7 @@ group :development, :test do
   gem 'launchy'
   gem "factory_girl_rails", "~> 4.0"
   gem 'pry'
+  gem 'simplecov'
 end
 
 group :development do

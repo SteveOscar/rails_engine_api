@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ItemsRandomController do
+RSpec.describe Api::V1::Items::ItemsRandomController do
   describe "#show" do
     it "returns a random item" do
       item = FactoryGirl.create(:item)
@@ -10,7 +10,7 @@ RSpec.describe Api::V1::ItemsRandomController do
       result = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(result.first['name']).to eq(item.name)
+      expect(result.last['description']).to eq("So good")
     end
   end
 end

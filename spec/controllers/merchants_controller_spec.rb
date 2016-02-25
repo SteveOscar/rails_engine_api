@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::MerchantsController do
+RSpec.describe Api::V1::Merchants::MerchantsController do
   describe "GET merchant endpoints" do
     it "returns all merchant ids" do
       FactoryGirl.create(:merchant)
@@ -16,7 +16,7 @@ RSpec.describe Api::V1::MerchantsController do
       get :show, id: merchant.id, format: :json
 
       result = JSON.parse(response.body)
-      
+
       expect(response).to be_success
       expect(result['name']).to eq(merchant.name)
     end

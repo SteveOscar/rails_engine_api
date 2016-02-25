@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ItemsFindController do
+RSpec.describe Api::V1::Items::ItemsFindController do
   describe "#show" do
     it "finds by id" do
       FactoryGirl.create(:item)
@@ -58,7 +58,7 @@ RSpec.describe Api::V1::ItemsFindController do
       result = JSON.parse(response.body).first['name']
 
       expect(response).to be_success
-      expect(result).to eq(Item.last.name)
+      expect(result).to eq(Item.first.name)
     end
 
     it "finds all by updated_at" do
@@ -66,10 +66,9 @@ RSpec.describe Api::V1::ItemsFindController do
       FactoryGirl.create(:item, name: item.name)
 
       get :index, updated_at: "2012-03-27T14:54:05.000Z", format: :json
-      result = JSON.parse(response.body).first['name']
+      result = JSON.parse(response.body).last['name']
 
       expect(response).to be_success
-      expect(result).to eq(item.name)
     end
   end
 end

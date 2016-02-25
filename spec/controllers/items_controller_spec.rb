@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ItemsController do
+RSpec.describe Api::V1::Items::ItemsController do
   describe "#index" do
     it "returns all item ids" do
       FactoryGirl.create(:item)

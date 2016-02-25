@@ -1,11 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::InvoicesFindController do
+RSpec.describe Api::V1::Invoices::InvoicesFindController do
   before(:all) do
     customer = FactoryGirl.create(:customer)
     merchant = FactoryGirl.create(:merchant)
     invoice = FactoryGirl.create(:invoice, customer_id: customer.id,
                                            merchant_id: merchant.id,
+                                           status: 'shipped',
                                            created_at: DateTime.parse("2012-03-27T14:54:05.000Z"),
                                            updated_at: DateTime.parse("2012-03-27T14:54:05.000Z"))
    end
@@ -22,12 +23,19 @@ RSpec.describe Api::V1::InvoicesFindController do
     end
 
     it "finds by customer_id" do
-
       get :show, customer_id: Invoice.first.customer_id, format: :json
       result = JSON.parse(response.body)
 
       expect(response).to be_success
       expect(result['customer_id']).to eq(Invoice.first.customer_id)
+    end
+
+    it "finds by merchant_id" do
+      get :show, merchant_id: Invoice.first.merchant_id, format: :json
+      result = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(result['merchant_id']).to eq(Invoice.first.merchant_id)
     end
   end
 
@@ -52,23 +60,23 @@ RSpec.describe Api::V1::InvoicesFindController do
       expect(result).to eq(1)
     end
 
-    xit "finds all by created_at" do
+    it "finds all by created_at" do
 
       get :index, created_at: "2012-03-27T14:54:05.000Z", format: :json
 
       result = JSON.parse(response.body).first['created_at']
 
       expect(response).to be_success
-      expect(result).to eq(Invoice.first.created_at)
+      expect(DateTime.parse(result)).to eq(Invoice.first.created_at)
     end
 
-    xit "finds all by updated_at" do
+    it "finds all by updated_at" do
 
       get :index, updated_at: "2012-03-27T14:54:05.000Z", format: :json
       result = JSON.parse(response.body).first['updated_at']
 
       expect(response).to be_success
-      expect(result).to eq(Invoice.first.updated_at)
+      expect(DateTime.parse(result)).to eq(Invoice.first.updated_at)
     end
   end
 end

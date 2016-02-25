@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::CustomersFindController do
+RSpec.describe Api::V1::Customers::CustomersFindController do
   describe "#show" do
     it "finds by id" do
       FactoryGirl.create(:customer)
