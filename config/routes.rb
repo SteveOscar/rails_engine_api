@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-
-
   namespace :api do
     namespace :v1, defaults: {format: :json} do
-
       resources :items, module: 'items' do
         collection do
           get '/random', to: 'items_random#show'
@@ -78,6 +75,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
-
 end
